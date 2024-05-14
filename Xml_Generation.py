@@ -12,9 +12,7 @@ from langchain_community.document_loaders import TextLoader
 from io import StringIO
 import streamlit as st
 import time
-import base64
 
-load_dotenv()
 def myfunc(query):
     loader = TextLoader(
             "/Users/ashambharkar/Desktop/Table creation/StudTable.xml",
