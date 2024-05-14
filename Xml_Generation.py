@@ -4,8 +4,6 @@ from io import StringIO
 import streamlit as st
 import os
 
-from dotenv import load_dotenv
-
 from langchain import OpenAI
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
