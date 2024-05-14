@@ -11,7 +11,6 @@ from langchain_community.document_loaders import TextLoader
 
 from io import StringIO
 import streamlit as st
-from dotenv import load_dotenv
 import time
 import base64
 
