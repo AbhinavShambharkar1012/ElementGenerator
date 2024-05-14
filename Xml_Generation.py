@@ -23,14 +23,14 @@ def myfunc(query):
     print(data)
 
     loader = TextLoader(
-            "/Users/ashambharkar/Desktop/GenAI FnO/Project - GPT- Table - Extension - EDT Creation/StudTbl.AbhinavTestModel.xml",
+            "AbhinavTestModel.xml",
             encoding = 'UTF-8'
         )
     document1 = loader.load()
     TblExtensionData = str(document1[0])
 
     loader = TextLoader(
-            "/Users/ashambharkar/Desktop/GenAI FnO/Project - GPT- Table - Extension - EDT Creation/MyEDT.xml",
+            "MyEDT.xml",
             encoding = 'UTF-8'
         )
     document2 = loader.load()
