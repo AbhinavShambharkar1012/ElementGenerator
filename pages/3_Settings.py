@@ -23,9 +23,7 @@ st.markdown(
                 width:200px;
                 
             }
-            .st-aw{
-                background-color : #6D31ED;
-            }
+            
             [data-testid="block-container"]{
                 padding-left : 2rem;
                 padding-right : 2rem;
