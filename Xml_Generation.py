@@ -47,7 +47,7 @@ def myfunc(query):
     print(prompt)
 
     llm= ChatOpenAI(temperature=0,
-                model_name='gpt-3.5-turbo') 
+                model_name='gpt-3.5-turbo',api_key = "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") 
     #llm = LLMChain(llm=model,prompt=prompt)
     #query = "Create a similar file with table name as familydata with similar to StudTbl with fields  empid , empName , empfamilyname and create one fieldgroup with name myfieldgroup."
     #query = "Create an extension of table familydata with field as myfield2"
