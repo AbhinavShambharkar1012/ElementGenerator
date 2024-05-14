@@ -152,7 +152,7 @@ with col1:
     Left_Container = st.container()
     with Left_Container:
         User_Input = st.text_area("Provide your Instruction for XML Generation :", key='input',height= 120)
-        button_col1 ,button_col2 = st.columns([3,1])
+        button_col1 ,button_col2 = st.columns([2,1])
         with button_col2:
             generate = st.button(label='Generate')
 
