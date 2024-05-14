@@ -1,2 +1,2 @@
 langchain
-code_editor
+streamlit-code-editor
