@@ -171,7 +171,7 @@ with col1:
                 with sub2_col2:
                     st.write(file_name)
 
-            col_1 , col_2 = st.columns([1,2])
+            col_1 , col_2 = st.columns([2,1])
             with col_1:
                 st.download_button(
                             label="Download File",
