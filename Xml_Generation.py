@@ -23,7 +23,7 @@ def myfunc(query):
     print(data)
 
     loader = TextLoader(
-            "AbhinavTestModel.xml",
+            "StudTbl.AbhinavTestModel.xml",
             encoding = 'UTF-8'
         )
     document1 = loader.load()
