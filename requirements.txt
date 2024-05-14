@@ -1,4 +1,3 @@
 langchain
 streamlit-code-editor
-openai-python
 openai
