@@ -1,7 +1,7 @@
 import streamlit as st
 from Xml_Generation import myfunc,get_file_name
 from code_editor import code_editor
-st.secrets[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]
+st.secrets["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"]
 
 st.set_page_config(layout="wide")
 
