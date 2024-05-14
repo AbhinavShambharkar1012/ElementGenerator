@@ -15,7 +15,7 @@ import time
 
 def myfunc(query):
     loader = TextLoader(
-            "/Users/ashambharkar/Desktop/Table creation/StudTable.xml",
+            "StudTable.xml",
             encoding = 'UTF-8'
         )
     document = loader.load()
