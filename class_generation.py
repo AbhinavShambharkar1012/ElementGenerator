@@ -4,7 +4,7 @@ from io import StringIO
 import streamlit as st
 import os
 
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 from langchain import OpenAI
 from langchain.chains import LLMChain
@@ -13,7 +13,7 @@ from langchain_community.document_loaders import TextLoader
 
 from io import StringIO
 import streamlit as st
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import time
 import base64
 
