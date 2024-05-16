@@ -17,7 +17,7 @@ import streamlit as st
 import time
 import base64
 
-load_dotenv()
+#load_dotenv()
 def myfuncclass(query):
     #prompt_template = "Here are the details to generate SysOperation framework classes for our project:  Sample Files: - Attached are the sample files for the three classes: a. Data Contract Class: {contract} b. Service Class: {service} c. Controller Class: {controller} Looking forward to the generated classes. Thanks .Dont make up things on your own."
 
