@@ -1,11 +1,24 @@
 import streamlit as st
 from Xml_Generation import myfunc,get_file_name
 from code_editor import code_editor
+from streamlit_option_menu import option_menu
+from class_generation import myfuncclass,get_class_name
+import json
+
 
 st.set_page_config(layout="wide")
 
 if 'data' not in st.session_state:
     st.session_state['data'] = []
+
+if 'classes' not in st.session_state:
+    st.session_state['classes'] = []
+
+if 'User_Input' not in st.session_state:
+    st.session_state['User_Input'] = []
+
+if 'sample_prompt' not in st.session_state:
+    st.session_state['sample_prompt'] = []
 
 if 'theme' not in st.session_state:
     st.session_state['theme'] = []
@@ -13,6 +26,15 @@ if 'theme' not in st.session_state:
 st.markdown(
         """
         <style>
+            button[kind="primary"] {
+                background: none!important;
+                border: none;
+                padding: 0!important;
+                color: black !important;
+                text-decoration: none;
+                cursor: pointer;
+                border: none !important;
+            }
             [data-testid="stSidebarNav"] {
                 background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/15/Deloitte_Logo.png);
                 background-repeat: no-repeat;
@@ -33,9 +55,7 @@ st.markdown(
                 width:200px;
                 
             }
-            .st-aw{
-                background-color : #6D31ED;
-            }
+            
             [data-testid="block-container"]{
                 padding-left : 2rem;
                 padding-right : 2rem;
@@ -103,6 +123,7 @@ st.markdown(
                 background-color : #F3F4F6;
             }
             
+            
 
             .h1{
                 color : yellow;
@@ -128,7 +149,16 @@ st.markdown(
         """,
         unsafe_allow_html=True,
     )
-
+javascript_code = """
+<script>
+document.getElementById("my-link").addEventListener("click", function() {
+    // Execute some action when the link is clicked
+    
+    // You can also call Streamlit functions here using Streamlit's JavaScript API
+    Streamlit.setComponentValue("Something is printed when file1Clicked is clicked!");
+});
+</script>
+"""
 
 col1, col2 = st.columns([2,3]) 
 
@@ -140,83 +170,182 @@ with col1:
         with sub_col1:
             st.image("image (1).png")
         with sub_col2:
-            st.markdown("" + "Generate F&O table Creation XML")
+            st.markdown("" + "Generate F&O table")
             st.markdown(""+ "Table name : 'Customer' ,")
             st.markdown(""+ "Fields : 'Name , Age , Place '")
 
+    #selected = option_menu("Main Menu", ["Home", 'Settings'], 
+        #icons=['house', 'gear'], menu_icon="cast", default_index=1)
+    
+    option = st.selectbox(
+    "",
+    ("Select element to create","Table", "Table Extension", "EDT","SysOperations Framework"))
+    #object_to_create = st.radio( " ",('Table', 'Form', 'EDT'),horizontal=True)
 
-    object_to_create = st.radio( " ",
-        ('Table', 'Form', 'EDT'),
-        horizontal=True)
-
+    
     Left_Container = st.container()
     with Left_Container:
-        User_Input = st.text_area("Provide your Instruction for XML Generation :", key='input',height= 120)
-        button_col1 ,button_col2 = st.columns([2,1])
+        
+        option_data = {
+            'Select element to create': 'Select element to create',
+            'Table': "Generate F&O table Table name : 'Customer' , Fields : 'Name , Age , Place '",
+            'Table Extension': 'Generate Table extension for Table CustTable Model Name : AbhinavTestModel , Fields : MyExampleField',
+            'EDT': 'Generate EDT with name TransfID',
+            'SysOperations Framework': 'Create sysoperation framework with naming convention AASBatchJob and parameters as transferId with EDT TransfID'
+        }
+     
+        def update_text_area(selected_option):
+            selected_data = option_data[selected_option]
+            global user_Input 
+            user_Input = st.text_area('Provide your Instruction for XML Generation :', selected_data, key = option, height=120)
+            st.session_state['User_Input'] = user_Input
+            
+        if option:
+            update_text_area(option) 
+
+
+        button_col1 ,button_col2 = st.columns([3,1])
         with button_col2:
             generate = st.button(label='Generate')
 
+        
+        if generate:
+            if option == "Select element to create":
+                st.error("Please Select element to create!")
+            else:
+                if option == "SysOperations Framework":
+                    data = myfuncclass(st.session_state['User_Input'])
+                    file_name = "myfile.xpp"
+                    
+                    output_dict = json.loads(data)
+                    classes = []
+                    for key, value in output_dict.items():
+                        classes.append(value)
+                    st.session_state['classes'] = classes[1]
+                    class_name = get_class_name(data)
+                    sub_container2 = st.container()
+                    with sub_container2:
+                        sub2_col1, sub2_col2 = st.columns([2,1])
+                        with sub2_col1:
+                            st.write(class_name)
+                        
+                    col_1 , col_2 = st.columns([1,2])
+                    with col_1:
+                        st.download_button(
+                                    label="Download File",
+                                    data=data,
+                                    file_name=file_name,
+                                    mime='text/xml',
+                                )
+                    with col_2:
+                        clear = st.button(label="Clear")       
+                            
+
+                else:
+                    data = myfunc(st.session_state['User_Input'])
+                    file_name = get_file_name(data)
+                    st.session_state['data'] = data
+
+                    sub_container2 = st.container()
+                    with sub_container2:
+                        sub2_col1, sub2_col2 = st.columns([1,6])
+                        with sub2_col1:
+                            st.image("image (2).png")
+                        with sub2_col2:
+                            st.write(file_name)
+                    col_1 , col_2 = st.columns([1,2])
+                    with col_1:
+                        st.download_button(
+                                    label="Download File",
+                                    data=data,
+                                    file_name=file_name,
+                                    mime='text/xml',
+                                )
+                    with col_2:
+                        clear = st.button(label="Clear") 
+
+            
+with col2:
+    if option == "SysOperations Framework":
+        Right_Container1 = col2.container()
+        with Right_Container1:
+            st.text("Code Preview")
+            #Code_preview = st.code(st.session_state['data'],language="xml", line_numbers=True)
+            #Code_preview = st.data_editor(st.session_state['data'])
+            #Code_Preview = code_editor(st.session_state['data'])
+
+            editor_btns = [{
+                "name": "Theme",
+                "feather": "Moon",
+                "primary": True,
+                "hasText": True,
+                "showWithIcon": True,
+                "commands": ["submit"],
+                "style": {"Top": "0.44rem", "right": "0.4rem"}
+            }]
+            mycode1 = st.session_state['classes']
+            
+            if mycode1:
+                mycode1 = mycode1
+            else:
+                mycode1 = "Your Output class will be shown here"
+
+            mytheme = st.session_state['theme']
+            
+            if mytheme:
+                mytheme = mytheme
+            else:
+                mytheme = "Default"
+
+            code_editor1 = code_editor(mycode1,lang="xml",theme=mytheme,info="code preview",buttons=editor_btns,options={"wrap": True, "showLineNumbers": True})
+
+            code_editor2 = code_editor(mycode1,lang="xml",theme=mytheme,info="code preview",key="secondeditor",buttons=editor_btns,options={"wrap": True, "showLineNumbers": True})
+
+            code_editor3 = code_editor(mycode1,lang="xml",theme=mytheme,info="code preview",key="thirdeditor",buttons=editor_btns,options={"wrap": True, "showLineNumbers": True})
+
             
 
-        if generate:
-            data = myfunc(User_Input)
-            file_name = get_file_name(data)
-            st.session_state['data'] = data
+            if len(code_editor1['id']) != 0 and ( code_editor1['type'] == "selection" or code_editor1['type'] == "submit" ):
+                if st.session_state['theme'] == "dark":
+                        st.session_state['theme'] = "Default"
+                else:
+                        st.session_state['theme'] = "dark"
+        st.write(st.session_state)
+    else:
+        Right_Container = col2.container()
+        with Right_Container:
+            st.text("Code Preview")
+            #Code_preview = st.code(st.session_state['data'],language="xml", line_numbers=True)
+            #Code_preview = st.data_editor(st.session_state['data'])
+            #Code_Preview = code_editor(st.session_state['data'])
 
-            sub_container2 = st.container()
-            with sub_container2:
-                sub2_col1, sub2_col2 = st.columns([1,6])
-                with sub2_col1:
-                    st.image("image (2).png")
-                with sub2_col2:
-                    st.write(file_name)
+            editor_btns = [{
+                "name": "Theme",
+                "feather": "Moon",
+                "primary": True,
+                "hasText": True,
+                "showWithIcon": True,
+                "commands": ["submit"],
+                "style": {"Top": "0.44rem", "right": "0.4rem"}
+            }]
+            mycode = st.session_state['data']
+            if mycode:
+                mycode = mycode
+            else:
+                mycode = "Your Output will be shown here"
 
-            col_1 , col_2 = st.columns([2,1])
-            with col_1:
-                st.download_button(
-                            label="Download File",
-                            data=data,
-                            file_name=file_name,
-                            mime='text/xml',
-                        )
-            with col_2:
-                clear = st.button(label="Clear")
-with col2:
-    
-    Right_Container = col2.container()
-    with Right_Container:
-        st.text("Code Preview")
-        #Code_preview = st.code(st.session_state['data'],language="xml", line_numbers=True)
-        #Code_preview = st.data_editor(st.session_state['data'])
-        #Code_Preview = code_editor(st.session_state['data'])
+            mytheme = st.session_state['theme']
+            if mytheme:
+                mytheme = mytheme
+            else:
+                mytheme = "Default"
+            code_editor = code_editor(mycode,lang="XML",theme=mytheme,info="code preview",buttons=editor_btns,options={"wrap": True, "showLineNumbers": True})
 
-        editor_btns = [{
-            "name": "Theme",
-            "feather": "Moon",
-            "primary": True,
-            "hasText": True,
-            "showWithIcon": True,
-            "commands": ["submit"],
-            "style": {"Top": "0.44rem", "right": "0.4rem"}
-        }]
-        mycode = st.session_state['data']
-        if mycode:
-            mycode = mycode
-        else:
-            mycode = "Your Output will be shown here"
-
-        mytheme = st.session_state['theme']
-        if mytheme:
-            mytheme = mytheme
-        else:
-            mytheme = "Default"
-        code_editor = code_editor(mycode,lang="XML",theme=mytheme,info="code preview",buttons=editor_btns,options={"wrap": True, "showLineNumbers": True})
-
-        if len(code_editor['id']) != 0 and ( code_editor['type'] == "selection" or code_editor['type'] == "submit" ):
-           if st.session_state['theme'] == "dark":
-                st.session_state['theme'] = "Default"
-           else:
-                st.session_state['theme'] = "dark"
+            if len(code_editor['id']) != 0 and ( code_editor['type'] == "selection" or code_editor['type'] == "submit" ):
+                if st.session_state['theme'] == "dark":
+                        st.session_state['theme'] = "Default"
+                else:
+                        st.session_state['theme'] = "dark"
 
 
 
