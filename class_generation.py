@@ -28,7 +28,7 @@ def myfuncclass(query):
     ) 
 
     llm= ChatOpenAI(temperature=0,
-                model_name='gpt-3.5-turbo') 
+                model_name='gpt-3.5-turbo',api_key = "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") 
     
     answer = llm.invoke(prompt.format(query=query))
     return answer.content
@@ -45,7 +45,7 @@ def get_class_name(mydata):
     )
 
     llm= ChatOpenAI(temperature=0,
-                model_name='gpt-3.5-turbo') 
+                model_name='gpt-3.5-turbo',api_key = "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") 
     query = "Return just three class names with .xpp extension"
     answer = llm.invoke(prompt.format(data1=mydata,query=query))
     return answer.content
