@@ -1,7 +1,7 @@
 import streamlit as st
 from Xml_Generation import myfunc,get_file_name
 from code_editor import code_editor
-from streamlit_option_menu import option_menu
+#from streamlit_option_menu import option_menu
 from class_generation import myfuncclass,get_class_name
 import json
 
