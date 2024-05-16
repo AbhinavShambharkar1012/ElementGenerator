@@ -52,6 +52,7 @@ st.markdown(
             }
             .st-emotion-cache-1jicfl2{
                 padding-left : 1rem;
+                padding-right : 1rem;
             }
             [data-testid="stSidebarContent"]{
                 width:200px;
@@ -255,7 +256,7 @@ with col1:
                             st.image("image (2).png")
                         with sub2_col2:
                             st.write(file_name)
-                    col_1 , col_2 = st.columns([1,2])
+                    col_1 , col_2 = st.columns([2,1])
                     with col_1:
                         st.download_button(
                                     label="Download File",
