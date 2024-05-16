@@ -50,7 +50,9 @@ st.markdown(
                 background-color : #FAFAFB;
                 
             }
-            
+            .st-emotion-cache-1jicfl2{
+                padding-left : 1rem;
+            }
             [data-testid="stSidebarContent"]{
                 width:200px;
                 
