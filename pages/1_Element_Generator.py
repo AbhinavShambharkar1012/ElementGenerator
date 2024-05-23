@@ -110,8 +110,8 @@ st.markdown(
 
             }
             .st-emotion-cache-1jicfl2{
-                padding-left : 0.3rem;
-                padding-right : 0.3rem;
+                padding-left : 0.6rem;
+                padding-right : 0.6rem;
             }
             [data-testid="stText"] {
                 margin-left : 250px;
