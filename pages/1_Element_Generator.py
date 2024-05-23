@@ -157,7 +157,7 @@ st.markdown(
         </style>
         <body>
             <div class="Header">
-                <h1>GenX++ D365 Finance and Operation Element Generator ..</h1>
+                <h2>GenX++ D365 Finance and Operation Element Generator ..</h2>
             </div>
         </body>
         """,
