@@ -109,6 +109,10 @@ st.markdown(
                 color : #6D31ED;
 
             }
+            .st-emotion-cache-1jicfl2{
+                padding-left : 0rem;
+                padding-right : 0rem;
+            }
             [data-testid="stText"] {
                 margin-left : 250px;
                 font-size :20px;
