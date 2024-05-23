@@ -1,0 +1,12 @@
+internal final class SASBatchJobService extends SysOperationServiceBase
+{
+    InventTransferId transferId;
+    str actionMenuItemName;
+    
+    public void process(SASBatchJobContract _contract)
+    {
+        /// write your logic here
+            
+    }
+
+}

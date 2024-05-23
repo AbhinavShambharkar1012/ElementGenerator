@@ -1,0 +1,54 @@
+internal final class SASBatchJobController extends SysOperationServiceController
+{
+    protected void New()
+    {
+        super(classStr(SASBatchJobService), methodStr(SASBatchJobService, process), SysOperationExecutionMode::Synchronous);
+    }
+
+    public ClassDescription defaultCaption()
+    {
+        return "Batch Job";
+    }
+
+    public static SASBatchJobController construct(SysOperationExecutionMode _executionMode = SysOperationExecutionMode::Synchronous)
+    {
+        SASBatchJobController  controller;
+        ;
+
+        controller = new SASBatchJobController();
+        controller.parmExecutionMode(_executionMode);
+
+        return controller;
+    }
+
+    public static void main(Args _args)
+    {
+        
+        InventTransferParmTable InventTransferParmTable;
+        InventTransferId transferId;
+
+        SASBatchJobController    controller;
+        SASBatchJobContract      contract;
+        
+        ;
+
+        controller  = SASBatchJobController::construct();
+        controller.parmArgs(_args);
+
+        FormRun             fr    = _args.caller();
+
+        str actionMenuItemName =  _args.menuItemName();
+        FormDataSource inventTableDataSource = fr.dataSource(formDataSourceStr(InventTransferEditLines,InventTransferParmTable));
+        InventTransferParmTable            = inventTableDataSource.cursor();
+
+        contract    = controller.getDataContractObject();
+        contract.parmTransferOrder(InventTransferParmTable.TransferID);
+
+        contract.parmActionMenuItemName(actionMenuItemName);
+
+        controller.startOperation();
+
+        
+    }
+
+}

@@ -1,0 +1,30 @@
+[DataContractAttribute]
+internal final class SASBatchJobContract
+{
+    InventTransferId transferId;
+    str actionMenuItemName;
+    /// <summary>
+    /// parm method for parameter
+    /// </summary>
+    /// <param name = "_transferId">Sales order</param>
+    /// <returns>List</returns>
+    
+    [DataMemberAttribute("Transfer Id"),
+        AifCollectionTypeAttribute("Transfer Id", Types::String),
+        SysOperationLabelAttribute(literalStr("Transfer Id"))]
+    public InventTransferId parmTransferOrder(InventTransferId _transferId = transferId)
+    {
+        transferId = _transferId;
+ 
+        return transferId;
+    }
+
+    [DataMemberAttribute,SysOperationControlVisibilityAttribute(false)]
+    public str parmActionMenuItemName(str _actionMenuItemName = actionMenuItemName)
+    {
+        actionMenuItemName = _actionMenuItemName;
+ 
+        return actionMenuItemName;
+    }
+
+}
